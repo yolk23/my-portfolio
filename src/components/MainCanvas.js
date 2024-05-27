@@ -1,4 +1,3 @@
-import React from "react";
 import { Canvas } from "@react-three/fiber";
 import Outline from "./Assets/Outline";
 import { OrbitControls } from "@react-three/drei";
