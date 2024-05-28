@@ -73,10 +73,7 @@ const BlackStoneStair = ({
 }) => {
   return (
     <>
-      <group
-        position={position}
-        rotation={rotation ? [0, Math.PI, 0] : [0, 0, 0]}
-      >
+      <group position={position} rotation={rotation ? rotation : [0, 0, 0]}>
         <mesh>
           <boxGeometry args={firstSize} />
           <meshStandardMaterial color={blockColor} />
@@ -135,6 +132,17 @@ const NetherSlab = ({ position, blockColor = "red", size }) => {
   );
 };
 
+const QuartzSlab = ({ position, blockColor = "green", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
 const InnerBlackStoneRoof = ({ position }) => {
   return (
     <>
@@ -158,9 +166,9 @@ const InnerBlackStoneRoof = ({ position }) => {
         <BlackStoneStair position={[1, 5, -7.75]} />
         <BlackStoneStair position={[1, 6, -6.75]} />
         <BlackStoneStair position={[1, 7, -5.75]} />
-        <BlackStoneStair position={[1, 7, -4.25]} rotation={true} />
-        <BlackStoneStair position={[1, 6, -3.25]} rotation={true} />
-        <BlackStoneStair position={[1, 5, -2.25]} rotation={true} />
+        <BlackStoneStair position={[1, 7, -4.25]} rotation={[0, Math.PI, 0]} />
+        <BlackStoneStair position={[1, 6, -3.25]} rotation={[0, Math.PI, 0]} />
+        <BlackStoneStair position={[1, 5, -2.25]} rotation={[0, Math.PI, 0]} />
       </group>
     </>
   );
@@ -222,19 +230,115 @@ const BaseLayer = () => {
   );
 };
 
-const ExtraRightSideRoof = () => {
+const ExtraRightSideRoof = ({ position }) => {
   return (
     <>
-      <NetherBlock position={[-2, -4, 4]} size={[1, 1, 1]} />
-      <NetherSlab position={[-2, -4.25, 5]} size={[1, 0.5, 1]} />
-      <NetherSlab position={[-2, -4.5, 5]} size={[1, 0.5, 1]} />
-      <NetherBlock position={[-2, -5, 6]} size={[1, 1, 1]} />
-      <NetherSlab position={[-2, -5.25, 7]} size={[1, 0.5, 1]} />
-      <BlackStoneStair position={[-3, -3, 3.75]} rotation={true} />
-      <BlackStoneBlock position={[-3, -4, 4.5]} size={[1, 1, 2]} />
-      <BlackStoneBlock position={[-3, -5, 6.5]} size={[1, 1, 2]} />
-      <BlackStoneSlab position={[-3, -4.25, 6]} size={[1, 0.5, 1]} />
-      <BlackStoneSlab position={[-3, -5.25, 8]} size={[1, 0.5, 1]} />
+      <group position={position}>
+        <ExtraRoof />
+        <BlackStoneStair position={[-3, -3, 3.75]} rotation={[0, Math.PI, 0]} />
+        <BlackStoneBlock position={[-3, -4, 4.5]} size={[1, 1, 2]} />
+        <BlackStoneBlock position={[-3, -5, 6.5]} size={[1, 1, 2]} />
+        <BlackStoneSlab position={[-3, -4.25, 6]} size={[1, 0.5, 1]} />
+        <BlackStoneSlab position={[-3, -5.25, 8]} size={[1, 0.5, 1]} />
+      </group>
+    </>
+  );
+};
+
+const ExtraRoof = ({ position }) => {
+  return (
+    <>
+      <group position={position}>
+        <NetherBlock position={[-2, -4, 4]} size={[1, 1, 1]} />
+        <NetherSlab position={[-2, -4.25, 5]} size={[1, 0.5, 1]} />
+        <NetherSlab position={[-2, -4.5, 5]} size={[1, 0.5, 1]} />
+        <NetherBlock position={[-2, -5, 6]} size={[1, 1, 1]} />
+        <NetherSlab position={[-2, -5.25, 7]} size={[1, 0.5, 1]} />
+      </group>
+    </>
+  );
+};
+
+const SeaLanternBlock = ({ position, blockColor = "#20B2AA", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const WarpedBlock = ({ position, blockColor = "#0D98BA", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const WarpedWall = ({
+  position,
+  blockColor = "#0D98BA",
+  size = [1 / 2, 1, 1 / 2],
+}) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const WoodenTrapdoor = ({
+  position,
+  blockColor = "brown",
+  size = [0.1875, 1, 1],
+  rotation,
+}) => {
+  return (
+    <>
+      <group rotation={rotation ? rotation : [0, 0, 0]}>
+        <mesh position={position}>
+          <boxGeometry args={size} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+      </group>
+    </>
+  );
+};
+
+const AccaciaTrapdoor = ({
+  position,
+  blockColor = "orange",
+  size = [0.1875, 1, 1],
+  rotation,
+}) => {
+  return (
+    <>
+      <group rotation={rotation ? rotation : [0, 0, 0]}>
+        <mesh position={position}>
+          <boxGeometry args={size} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+      </group>
+    </>
+  );
+};
+
+const BlastFurnace = ({ position, blockColor = "#818589", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
     </>
   );
 };
@@ -255,6 +359,8 @@ const SecondLayer = () => {
       <GrayBlock position={[1, -3, -7.5]} size={[1, 13, 2]} />
       <GrayBlock position={[1, 2, -4]} size={[1, 3, 5]} />
       <GrayBlock position={[2.5, 2, -1]} size={[4, 3, 1]} />
+      <GrayBlock position={[2.5, 0, -1]} size={[4, 1, 1]} />
+      <GrayBlock position={[1, 0, -3]} size={[1, 1, 4]} />
     </>
   );
 };
@@ -269,8 +375,50 @@ const MainIsland = ({ position }) => {
       {/*Third Section Roofs*/}
       <group>
         <InnerBlackStoneRoof position={[-9, -8, 6]} />
+        <OuterNetheRoof position={[2, 0, 0]} />
         <OuterNetheRoof position={[0, 0, 0]} />
+        {Array.from({ length: 3 }, (_, i) => (
+          <ExtraRoof key={-2 - i} position={[-2 - i, 0, 0]} />
+        ))}
+        <BlackStoneBlock position={[-7, 0, 1]} />
+        <BlackStoneSlab position={[-8.5, 0.5, 1]} size={[2, 0.5, 1]} />
+        <WoodenTrapdoor
+          position={[-1.5, -1, -7]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        <WoodenTrapdoor
+          position={[-0.5, -1, -7]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
         <ExtraRightSideRoof />
+        {/*Details*/}
+        <SeaLanternBlock position={[1.5, -4.5, 3]} size={[4, 8, 1]} />
+
+        {Array.from({ length: 8 }, (_, i) => (
+          <AccaciaTrapdoor key={i} position={[-0.6, -1 - i, 4]} />
+        ))}
+        {Array.from({ length: 8 }, (_, i) => (
+          <AccaciaTrapdoor key={i} position={[3.6, -1 - i, 4]} />
+        ))}
+
+        {Array.from({ length: 4 }, (_, i) => (
+          <AccaciaTrapdoor
+            key={i}
+            position={[-0.4, 0 - i, 4]}
+            rotation={[0, 0, Math.PI / 2]}
+          />
+        ))}
+
+        {Array.from({ length: 4 }, (_, i) => (
+          <AccaciaTrapdoor
+            key={i}
+            position={[-8.6, 0 - i, 4]}
+            rotation={[0, 0, Math.PI / 2]}
+          />
+        ))}
+        <SeaLanternBlock position={[4, -1, 4]} size={[1, 1, 1]} />
+        <WarpedBlock position={[-3.5, -1.5, 3]} size={[4, 2, 1]} />
+        <BlastFurnace position={[4, -2, 4]} size={[1, 1, 1]} />
       </group>
       <group>
         <InnerBlackStoneRoof position={[7, 0, 0]} />
@@ -278,10 +426,61 @@ const MainIsland = ({ position }) => {
         {Array.from({ length: 6 }, (_, i) => (
           <OuterNetheRoof key={16 - i} position={[16 - i, 8, -6]} />
         ))}
+        <BlackStoneBlock position={[2, 8, -5]} size={[1, 1, 1]} />
+        <BlackStoneSlab position={[0.5, 8.75, -5]} size={[2, 0.5, 1]} />
+        <BlackStoneStair
+          position={[6.25, 8, -5]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+        {Array.from({ length: 6 }, (_, i) => (
+          <WoodenTrapdoor
+            key={i}
+            position={[4.4, 7, 2 + i]}
+            rotation={[0, Math.PI / 2, 0]}
+          />
+        ))}
+
+        {/*Billboard */}
+        <QuartzSlab position={[-2.5, -0.25, -1.5]} size={[6, 0.5, 8]} />
+        <QuartzSlab position={[-5, 0.25, -2]} size={[1, 0.5, 1]} />
+        <WarpedWall position={[-5, 1, -2]} />
+        {Array.from({ length: 4 }, (_, i) => (
+          <AccaciaTrapdoor
+            key={i}
+            position={[9.6, 5 - i, -2]}
+            rotation={[0, 0, Math.PI / 2]}
+          />
+        ))}
+        {Array.from({ length: 8 }, (_, i) => (
+          <AccaciaTrapdoor key={i} position={[-5.6, 9 - i, -2]} />
+        ))}
+        {Array.from({ length: 8 }, (_, i) => (
+          <AccaciaTrapdoor key={i} position={[-1.4, 9 - i, -2]} />
+        ))}
+        <WarpedBlock position={[-3.5, 5.5, -2]} size={[4, 8, 1]} />
+        <QuartzSlab position={[-2, 0.25, -2]} size={[1, 0.5, 1]} />
+        <WarpedWall position={[-2, 1, -2]} />
+        <QuartzSlab position={[2, -0.25, 1]} size={[3, 0.5, 3]} />
+        {/*Billboard */}
       </group>
+
       <group>
         <InnerBlackStoneRoof />
         <OuterNetheRoof position={[9, 8, -6]} />
+        <BlackStoneBlock position={[7, 8, -5]} size={[1, 1, 1]} />
+        <BlackStoneSlab position={[8.5, 8.75, -5]} size={[2, 0.5, 1]} />
+        <BlackStoneStair
+          position={[2.75, 8, -5]}
+          rotation={[0, Math.PI * 1.5, 0]}
+        />
+        <BlackStoneSlab position={[5.5, 7.75, -5]} size={[2, 0.5, 1]} />
+        {Array.from({ length: 6 }, (_, i) => (
+          <WoodenTrapdoor
+            key={i}
+            position={[5.6, 7, 2 + i]}
+            rotation={[0, Math.PI / 2, 0]}
+          />
+        ))}
       </group>
       {/*Fourth */}
     </group>
