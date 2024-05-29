@@ -20,6 +20,17 @@ const GrayBlock = ({ position, blockColor = "#808080 ", size }) => {
   );
 };
 
+const Shroomlight = ({ position, blockColor = "#FFAC1C", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
 const BlackBlock = ({ position, blockColor = "black", size }) => {
   return (
     <>
@@ -87,12 +98,68 @@ const BlackStoneStair = ({
   );
 };
 
+const WarpedStair = ({
+  position,
+  blockColor = "#2E8B57",
+  firstSize = [1, 1, 0.5],
+  secondSize = [1, 0.5, 0.5],
+  rotation,
+}) => {
+  return (
+    <>
+      <group position={position} rotation={rotation ? rotation : [0, 0, 0]}>
+        <mesh>
+          <boxGeometry args={firstSize} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+        <mesh position={[0, -0.25, -0.5]}>
+          <boxGeometry args={secondSize} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+      </group>
+    </>
+  );
+};
+
 const NetherBlock = ({ position, blockColor = "red", size }) => {
   return (
     <>
       <mesh position={position}>
         <boxGeometry args={size} />
         <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const AccaciaBlock = ({ position, blockColor = "orange", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const AccaciaGlass = ({ position, blockColor = "orange", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshBasicMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
+const WhiteStainedGlass = ({ position, blockColor = "white", size }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshBasicMaterial color={blockColor} />
       </mesh>
     </>
   );
@@ -128,6 +195,56 @@ const NetherSlab = ({ position, blockColor = "red", size }) => {
         <boxGeometry args={size} />
         <meshStandardMaterial color={blockColor} />
       </mesh>
+    </>
+  );
+};
+
+const RightsideExterriorDetails = ({ position }) => {
+  return (
+    <>
+      <group position={position}>
+        {Array.from({ length: 7 }, (_, i) => (
+          <IronTrapdoor key={i} position={[8.5, -6, -2 - i]} />
+        ))}
+        <Shroomlight position={[8, -6, -5]} size={[1, 1, 7]} />
+        <BlackStoneBlock position={[8, -8, -2]} size={[1, 3, 1]} />
+        <WarpedStair
+          position={[7.75, -7, -4]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI * 2]}
+        />
+        <WarpedStair
+          position={[7.75, -7, -3]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI * 2]}
+        />
+        <WhiteStainedGlass position={[8, -8, -3.5]} size={[1, 1, 2]} />
+        <WarpedStair
+          position={[7.75, -9, -4]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI]}
+        />
+        <WarpedStair
+          position={[7.75, -9, -3]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI]}
+        />
+        <BlackStoneBlock position={[8, -8, -5]} size={[1, 3, 1]} />
+        <WarpedStair
+          position={[7.75, -7, -6]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI * 2]}
+        />
+        <WarpedStair
+          position={[7.75, -7, -7]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI * 2]}
+        />
+        <WhiteStainedGlass position={[8, -8, -6.5]} size={[1, 1, 2]} />
+        <WarpedStair
+          position={[7.75, -9, -7]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI]}
+        />
+        <WarpedStair
+          position={[7.75, -9, -6]}
+          rotation={[Math.PI, Math.PI * 1.5, Math.PI]}
+        />
+        <BlackStoneBlock position={[8, -8, -8]} size={[1, 3, 1]} />
+      </group>
     </>
   );
 };
@@ -270,6 +387,17 @@ const SeaLanternBlock = ({ position, blockColor = "#20B2AA", size }) => {
   );
 };
 
+const EndRod = ({ position, height, blockColor = "white" }) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={[0.125, height, 0.125]} />
+        <meshStandardMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
 const WarpedBlock = ({ position, blockColor = "#0D98BA", size }) => {
   return (
     <>
@@ -317,6 +445,24 @@ const WoodenTrapdoor = ({
 const AccaciaTrapdoor = ({
   position,
   blockColor = "orange",
+  size = [0.1875, 1, 1],
+  rotation,
+}) => {
+  return (
+    <>
+      <group rotation={rotation ? rotation : [0, 0, 0]}>
+        <mesh position={position}>
+          <boxGeometry args={size} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+      </group>
+    </>
+  );
+};
+
+const IronTrapdoor = ({
+  position,
+  blockColor = "#a19d94",
   size = [0.1875, 1, 1],
   rotation,
 }) => {
@@ -391,6 +537,20 @@ const MainIsland = ({ position }) => {
           rotation={[0, Math.PI / 2, 0]}
         />
         <ExtraRightSideRoof />
+        {/*Front Side Details */}
+        <AccaciaBlock position={[4, -1, 1.5]} size={[1, 1, 2]} />
+        <AccaciaGlass position={[4, -2.5, 1.5]} size={[1, 2, 2]} />
+        <AccaciaBlock position={[4, -5, 1.5]} size={[1, 3, 2]} />
+        <AccaciaGlass position={[4, -7.5, 1.5]} size={[1, 2, 2]} />
+        <AccaciaBlock position={[4, -9, 1.5]} size={[1, 1, 2]} />
+        <IronTrapdoor position={[-0.4, -5, 2]} rotation={[0, 0, Math.PI / 2]} />
+        <IronTrapdoor position={[-0.4, -5, 1]} rotation={[0, 0, Math.PI / 2]} />
+        <EndRod position={[5, -5, 2]} height={9} />
+        <EndRod position={[5, -5, 1]} height={9} />
+        {/*Rightside Details*/}
+        <RightsideExterriorDetails />
+        <RightsideExterriorDetails position={[0, 5, 0]} />
+        <RightsideExterriorDetails position={[0, 10, 0]} />
         {/*Details*/}
         <SeaLanternBlock position={[1.5, -4.5, 3]} size={[4, 8, 1]} />
 
