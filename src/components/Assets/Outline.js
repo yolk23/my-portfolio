@@ -165,6 +165,21 @@ const WhiteStainedGlass = ({ position, blockColor = "white", size }) => {
   );
 };
 
+const WhiteStainedGlassPane = ({
+  position,
+  blockColor = "white",
+  size = [0.125, 1, 1],
+}) => {
+  return (
+    <>
+      <mesh position={position}>
+        <boxGeometry args={size} />
+        <meshBasicMaterial color={blockColor} />
+      </mesh>
+    </>
+  );
+};
+
 const NetherStair = ({
   position,
   blockColor = "red",
@@ -442,6 +457,24 @@ const WoodenTrapdoor = ({
   );
 };
 
+const HalfGlassPane = ({
+  position,
+  blockColor,
+  size = [0.125, 1, 0.5],
+  rotation,
+}) => {
+  return (
+    <>
+      <group rotation={rotation ? rotation : [0, 0, 0]}>
+        <mesh position={position}>
+          <boxGeometry args={size} />
+          <meshStandardMaterial color={blockColor} />
+        </mesh>
+      </group>
+    </>
+  );
+};
+
 const AccaciaTrapdoor = ({
   position,
   blockColor = "orange",
@@ -507,6 +540,117 @@ const SecondLayer = () => {
       <GrayBlock position={[2.5, 2, -1]} size={[4, 3, 1]} />
       <GrayBlock position={[2.5, 0, -1]} size={[4, 1, 1]} />
       <GrayBlock position={[1, 0, -3]} size={[1, 1, 4]} />
+      <WarpedStair position={[-7, -9, 4.75]} rotation={[0, Math.PI, 0]} />
+      <WarpedStair
+        position={[-7, -6.75, 5]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+      />
+      <WarpedStair
+        position={[-5, -6.75, 5]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+      />
+      <WarpedStair
+        position={[-4, -6.75, 5]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+      />
+
+      {Array.from({ length: 4 }, (_, i) => (
+        <WoodenTrapdoor
+          key={i}
+          position={[-5.5, -6, -4 - i]}
+          rotation={[0, Math.PI / 2, 0]}
+        />
+      ))}
+      <BlackStoneStair
+        position={[-3, -6, 5.75]}
+        rotation={[0, Math.PI, Math.PI]}
+      />
+      <BlackStoneStair
+        position={[-8, -6, 5.75]}
+        rotation={[0, Math.PI, Math.PI]}
+      />
+      <BlackStoneSlab position={[-8, -5.75, 7.5]} size={[1, 0.5, 2]} />
+      <BlackStoneSlab position={[-3, -5.75, 7.5]} size={[1, 0.5, 2]} />
+      <HalfGlassPane position={[-3, -7, 5.75]} blockColor="black" />
+      <HalfGlassPane position={[-3, -8, 5.75]} blockColor="black" />
+      <HalfGlassPane position={[-3, -9, 5.75]} blockColor="black" />
+
+      <HalfGlassPane position={[-8, -7, 5.75]} blockColor="black" />
+      <HalfGlassPane position={[-8, -8, 5.75]} blockColor="black" />
+      <HalfGlassPane position={[-8, -9, 5.75]} blockColor="black" />
+      {/* */}
+      <WoodenTrapdoor position={[-8.5, -6, -1]} />
+      <WoodenTrapdoor position={[-8.5, -6, 0]} />
+      <WoodenTrapdoor position={[-8.5, -6, 1]} />
+      <WoodenTrapdoor position={[-8.5, -6, 2]} />
+      <WoodenTrapdoor position={[-8.5, -6, 3]} />
+
+      <WoodenTrapdoor position={[-8.5, -4, 0]} />
+      <WoodenTrapdoor position={[-8.5, -4, 1]} />
+      <WoodenTrapdoor position={[-8.5, -4, 2]} />
+      {/* */}
+      <WarpedStair
+        position={[-7.75, -7, 0]}
+        rotation={[0, Math.PI / 2, Math.PI]}
+      />
+      <WarpedStair
+        position={[-7.75, -7, -1]}
+        rotation={[0, Math.PI / 2, Math.PI]}
+      />
+      <WhiteStainedGlassPane position={[-8, -8, 0]} />
+      <WhiteStainedGlassPane position={[-8, -8, -1]} />
+      <WarpedStair
+        position={[-8, -9.25, -1]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+      />
+      <WarpedStair
+        position={[-8, -9.25, 0]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+      />
+      {/* */}
+      <WarpedStair
+        position={[-7.75, -7, 2]}
+        rotation={[0, Math.PI / 2, Math.PI]}
+      />
+      <WarpedStair
+        position={[-7.75, -7, 3]}
+        rotation={[0, Math.PI / 2, Math.PI]}
+      />
+      <WhiteStainedGlassPane position={[-8, -8, 2]} />
+      <WhiteStainedGlassPane position={[-8, -8, 3]} />
+      <WarpedStair
+        position={[-8, -9.25, 2]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+      />
+      <WarpedStair
+        position={[-8, -9.25, 3]}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+      />
+      {/* */}
+      <AccaciaBlock position={[-4.5, -9, -6]} size={[2, 1, 1]} />
+      <AccaciaGlass position={[-4.5, -7.5, -6]} size={[2, 2, 1]} />
+      <AccaciaBlock position={[-4.5, -5, -6]} size={[2, 3, 1]} />
+      <AccaciaGlass position={[-4.5, -2.5, -6]} size={[2, 2, 1]} />
+      <AccaciaBlock position={[-4.5, -1, -6]} size={[2, 1, 1]} />
+      <EndRod position={[-4, -5, -7]} height={9} />
+      <EndRod position={[-5, -5, -7]} height={9} />
+      <IronTrapdoor position={[-0.4, 4, -7]} rotation={[0, 0, Math.PI / 2]} />
+      <IronTrapdoor position={[-0.4, 5, -7]} rotation={[0, 0, Math.PI / 2]} />
+      <group position={[3, 0, 0]}>
+        <AccaciaBlock position={[-4.5, -9, -6]} size={[2, 1, 1]} />
+        <AccaciaGlass position={[-4.5, -7.5, -6]} size={[2, 2, 1]} />
+        <AccaciaBlock position={[-4.5, -5, -6]} size={[2, 3, 1]} />
+        <AccaciaGlass position={[-4.5, -2.5, -6]} size={[2, 2, 1]} />
+        <AccaciaBlock position={[-4.5, -1, -6]} size={[2, 1, 1]} />
+        <EndRod position={[-4, -5, -7]} height={9} />
+        <EndRod position={[-5, -5, -7]} height={9} />
+        <IronTrapdoor position={[-0.4, 4, -7]} rotation={[0, 0, Math.PI / 2]} />
+        <IronTrapdoor position={[-0.4, 5, -7]} rotation={[0, 0, Math.PI / 2]} />
+      </group>
+      <BlastFurnace position={[-7, -9, -6]} size={[1, 1, 1]} />
+      <BlastFurnace position={[-7, -8, -6]} size={[1, 1, 1]} />
+      <BlastFurnace position={[-7, -9, -5]} size={[1, 1, 1]} />
+      <BlastFurnace position={[-7, -8, -5]} size={[1, 1, 1]} />
     </>
   );
 };
