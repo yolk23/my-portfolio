@@ -1,3 +1,5 @@
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 import {
   GrayBlock,
   Shroomlight,
@@ -28,6 +30,11 @@ import {
   IronTrapdoor,
   HalfGlassPane,
   FloorBlock,
+  BillBoardPlaneB,
+  BillBoardPlaneA,
+  ThreeDLetter,
+  AndesiteSlab,
+  Beacon,
 } from "./Blocks";
 
 const RightsideExterriorDetails = ({ position }) => {
@@ -159,7 +166,7 @@ const BaseLayer = () => {
   return (
     <>
       <GrayBlock position={[-7, -10, 5]} size={[3, 1, 1]} />
-      <LightBlock position={[-4.5, -10, 5]} size={[2, 1, 1]} />
+      <SeaLanternBlock position={[-4.5, -10, 5]} size={[2, 1, 1]} />
       <GrayBlock position={[-3, -10, 4]} size={[1, 1, 3]} />
 
       <BlackBlock position={[-1, -5, 3]} size={[1, 11, 1]} />
@@ -430,7 +437,7 @@ const SecondLayer = () => {
             position={[-7.75, -7, -1]}
             rotation={[0, Math.PI / 2, Math.PI]}
           />
-          <WhiteStainedGlassPane position={[-8, -8, 0]} />
+          <WhiteStainedGlassPane position={[-8, -8, -1]} />
 
           <WarpedStair
             position={[-8, -9.25, -1]}
@@ -444,7 +451,7 @@ const SecondLayer = () => {
             position={[-7.75, -7, -1]}
             rotation={[0, Math.PI / 2, Math.PI]}
           />
-          <WhiteStainedGlassPane position={[-8, -8, 0]} />
+          <WhiteStainedGlassPane position={[-8, -8, -1]} />
 
           <WarpedStair
             position={[-8, -9.25, -1]}
@@ -505,6 +512,13 @@ const FirstBuilding = ({}) => {
     <>
       {/*Roof */}
       <group>
+        <ThreeDLetter
+          position={[-5, -2, 3.1]}
+          letter="OPEN"
+          color="red"
+          size={0.9}
+          depth={0.5}
+        />
         <WoodenTrapdoor
           position={[-1.5, -1, -7]}
           rotation={[0, Math.PI / 2, 0]}
@@ -552,6 +566,7 @@ const SecondBuilding = ({}) => {
 
         {/*Front Billboard Second Building*/}
         <SeaLanternBlock position={[1.5, -4.5, 3]} size={[4, 8, 1]} />
+        <BillBoardPlaneB position={[1.5, -4.5, 3.5]} size={[4, 8, 1]} />
 
         {Array.from({ length: 8 }, (_, i) => (
           <AccaciaTrapdoor key={i} position={[-0.6, -1 - i, 4]} />
@@ -597,7 +612,8 @@ const SecondBuilding = ({}) => {
         {Array.from({ length: 8 }, (_, i) => (
           <AccaciaTrapdoor key={i} position={[-1.4, 9 - i, -2]} />
         ))}
-        <WarpedBlock position={[-3.5, 5.5, -2]} size={[4, 8, 1]} />
+        {/* <SeaLanternBlock position={[-3.5, 5.5, -2]} size={[4, 8, 1]} /> */}
+        <BillBoardPlaneA position={[-3.5, 5.5, -2]} size={[4, 8, 0.4]} />
         <QuartzSlab position={[-2, 0.25, -2]} size={[1, 0.5, 1]} />
         <WarpedWall position={[-2, 1, -2]} />
         <QuartzSlab position={[2, -0.25, 1]} size={[3, 0.5, 3]} />
@@ -697,14 +713,94 @@ const ThirdBuilding = ({}) => {
 };
 
 const Floor = ({}) => {
+  const meshRef = useRef();
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x += 0.01;
+      meshRef.current.rotation.y += 0.01;
+    }
+  });
   return (
     <>
       <FloorBlock
-        size={[40, 1, 40]}
+        size={[4, 1, 7]}
+        position={[-5.5, -10, 1]}
+        blockColor={"black"}
+      />
+      <FloorBlock
+        size={[4, 1, 5]}
+        position={[-3.5, -10, -4]}
+        blockColor={"black"}
+      />
+      <FloorBlock
+        size={[4, 1, 5]}
+        position={[0, -10, -3]}
+        blockColor={"black"}
+      />
+      <FloorBlock
+        size={[7, 1, 5]}
         position={[0, -10, 0]}
         blockColor={"black"}
       />
+      <FloorBlock
+        size={[6, 1, 6]}
+        position={[4.5, -10, -5.5]}
+        blockColor={"black"}
+      />
+      <mesh position={[0, -11, -3]}>
+        <boxGeometry args={[30, 1, 20]} />
+        <meshStandardMaterial opacity={0.5} roughness={0.1} metalness={1} />
+      </mesh>
+      <AndesiteSlab position={[0, -10.5, 8]} size={[30, 1 / 2, 2]} />
+      <GrayBlock position={[0, -11, 11.5]} size={[30, 1, 5]} />
+      <AndesiteSlab position={[0, -10.5, 15]} size={[30, 1 / 2, 2]} />
+      <FloorBlock
+        size={[30, 1, 2]}
+        position={[0, -11, 17]}
+        blockColor={"black"}
+      />
+      <GrayBlock position={[8, -10.5, 7.5]} size={[1, 1, 1]} />
+      <GrayBlock position={[8, -9.5, 7.5]} size={[1, 1, 1]} />
+
+      {Array.from({ length: 6 }, (_, i) => (
+        <AndesiteWall key={i} position={[8, -3.5 - i, 7.5]} />
+      ))}
+      <AndesiteSlab position={[8, -3, 7.5]} size={[1, 1 / 2, 1]} />
+      <AndesiteSlab position={[8, -2.5, 7.5]} size={[1, 1 / 2, 1]} />
+      <AndesiteSlab position={[8, -2.5, 9]} size={[1, 1 / 2, 2]} />
+      <AndesiteSlab position={[8, -2.75, 10.5]} size={[1, 1, 1]} />
+      <AndesiteSlab position={[8, -3.5, 9.5]} size={[1, 1 / 2, 1]} />
+      <AndesiteSlab position={[8, -3.5, 8.5]} size={[1, 1 / 2, 1]} />
+      <Beacon position={[8, -3.75, 10.5]} size={[1, 1, 1]} />
+      <mesh position={[0, 10, -2]}>
+        <torusGeometry args={[2, 1, 10, 10]} />
+        <meshStandardMaterial
+          color={"purple"}
+          emissive={"white"}
+          emissiveIntensity={1}
+        />
+      </mesh>
+      <RotatingBox />
     </>
+  );
+};
+
+const RotatingBox = () => {
+  const meshRef = useRef();
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x += 0.01;
+      meshRef.current.rotation.y += 0.01;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} position={[0, 10, -2]}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="white" />
+    </mesh>
   );
 };
 
@@ -716,7 +812,7 @@ const MainIsland = ({ position }) => {
       <FirstBuilding />
       <SecondBuilding />
       <ThirdBuilding />
-      {/* <Floor /> */}
+      <Floor />
     </group>
   );
 };

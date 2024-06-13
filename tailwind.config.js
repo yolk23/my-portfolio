@@ -7,6 +7,7 @@ module.exports = {
     },
     colors: {
       skyblue: "#87CEEB",
+      black: "#000000",
     },
   },
   plugins: [],
